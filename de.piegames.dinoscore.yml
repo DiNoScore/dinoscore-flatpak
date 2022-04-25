@@ -1,0 +1,56 @@
+app-id: de.piegames.dinoscore
+runtime: org.gnome.Platform
+runtime-version: "42"
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: viewer
+finish-args:
+  - "--socket=fallback-x11"
+  - "--socket=wayland"
+  - "--device=dri"
+  - "--filesystem=xdg-documents/dinoscore/songs"
+build-options:
+  append-path: "/usr/lib/sdk/rust-stable/bin"
+  env:
+    CARGO_HOME: "/run/build/dinoscore/cargo"
+modules:
+  - name: boost
+    buildsystem: simple
+    build-commands:
+      - ./bootstrap.sh --prefix=/app --with-libraries=system
+      - ./b2 -j $FLATPAK_BUILDER_N_JOBS install
+    sources:
+      - type: archive
+        url: "https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2"
+        sha256: "8681f175d4bdb26c52222665793eef08490d7758529330f98d3b29dd0735bccc"
+  - name: poppler
+    buildsystem: cmake-ninja
+    config-opts:
+      - "-DCMAKE_INSTALL_LIBDIR=/app/lib"
+      - "-DCMAKE_INSTALL_INCLUDEDIR=/app/include"
+      - "-DENABLE_LIBOPENJPEG=none"
+    cleanup:
+      - "/bin"
+    sources:
+      - type: archive
+        url: "https://poppler.freedesktop.org/poppler-22.04.0.tar.xz"
+        sha256: "813fb4b90e7bda63df53205c548602bae728887a60f4048aae4dbd9b1927deff"
+  - name: portmidi
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: "https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.3.zip"
+        sha256: "bdeecf9968689d270c0883fabdd22d79039c982b7afda475665573b8e66bdcc5"
+  - name: dinoscore
+    buildsystem: simple
+    build-commands:
+      - cargo --offline fetch --manifest-path Cargo.toml
+      - cargo --offline build --release
+      - install -Dm755 ./target/release/viewer -t /app/bin/
+      - install -Dm755 ./target/release/editor -t /app/bin/
+    sources:
+      - cargo-sources.json
+      - type: git
+        url: "https://github.com/DiNoScore/DiNoScore.git"
+        branch: gtk4
