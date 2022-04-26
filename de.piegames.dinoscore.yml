@@ -9,6 +9,8 @@ finish-args:
   - "--socket=fallback-x11"
   - "--socket=wayland"
   - "--device=dri"
+  - "--share=ipc"
+  - "--socket=system-bus"
   - "--filesystem=xdg-documents/dinoscore/songs"
 cleanup:
   - "/include"
