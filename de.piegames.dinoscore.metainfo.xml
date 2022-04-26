@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>de.piegames.dinoscore</id>
+  <metadata_license>CC0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>DiNoScore*</name>
+  <summary>A digital music stand written with GTK in Rust using WoAB. Includes an editor to import your sheet. Touch-friendly thanks to Libhandy.</summary>
+  <description>
+    <p>A digital music stand written with GTK in Rust using WoAB. Includes an editor to import your sheet. Touch-friendly thanks to Libhandy.</p>
+  </description>
+  <url type="homepage">https://github.com/DiNoScore/DiNoScore</url>
+  <content_rating type="oars-1.0" />
+  <developer_name>piegames</developer_name>
+  <update_contact>git@piegames.de</update_contact>
+</component>

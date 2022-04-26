@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=DiNoScore* Editor
+Comment=A digital music stand written with GTK in Rust using WoAB. Includes an editor to import your sheet. Touch-friendly thanks to Libhandy.
+Type=Application
+Exec=editor
+Terminal=false
+Categories=Utility;GTK;
+Keywords=Rust;Flatpak;GTK;
+Icon=de.piegames.dinoscore
+StartupNotify=true

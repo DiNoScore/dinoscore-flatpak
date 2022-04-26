@@ -49,8 +49,14 @@ modules:
       - cargo --offline build --release
       - install -Dm755 ./target/release/viewer -t /app/bin/
       - install -Dm755 ./target/release/editor -t /app/bin/
+      - install -Dm644 ./${FLATPAK_ID}.metainfo.xml -t /app/share/metainfo/
+      - install -Dm644 ./${FLATPAK_ID}.editor.desktop -t /app/share/applications/
+      - install -Dm644 ./${FLATPAK_ID}.viewer.desktop -t /app/share/applications/
+      - install -Dm644 ./${FLATPAK_ID}.svg -t /app/share/icons/hicolor/scalable/apps/
     sources:
       - cargo-sources.json
       - type: git
         url: "https://github.com/DiNoScore/DiNoScore.git"
         branch: gtk4
+      - type: dir
+        path: "./"
