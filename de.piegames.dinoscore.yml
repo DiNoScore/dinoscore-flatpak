@@ -4,14 +4,17 @@ runtime-version: "44"
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
-command: viewer
+command: dinoscore
 finish-args:
   - "--socket=fallback-x11"
   - "--socket=wayland"
   - "--device=dri"
   - "--share=ipc"
   - "--socket=system-bus"
-  - "--filesystem=xdg-documents/dinoscore/songs"
+  - "--share=network"
+  - "--filesystem=xdg-config/dinoscore"
+  - "--filesystem=xdg-data/dinoscore"
+  - "--filesystem=xdg-cache/dinoscore"
 cleanup:
   - "/include"
   - "/lib/debug"
@@ -53,9 +56,9 @@ modules:
     buildsystem: simple
     build-commands:
       - cargo --offline fetch --manifest-path Cargo.toml
-      - cargo --offline build --release
-      - install -Dm755 ./target/release/viewer -t /app/bin/
-      - install -Dm755 ./target/release/editor -t /app/bin/
+      - cargo --offline build --release --locked
+      - install -Dm755 ./target/release/viewer /app/bin/dinoscore
+      - install -Dm755 ./target/release/editor /app/bin/dinoscore-editor
       - install -Dm644 ./${FLATPAK_ID}.metainfo.xml -t /app/share/metainfo/
       - install -Dm644 ./res/editor/${FLATPAK_ID}.editor.desktop -t /app/share/applications/
       - install -Dm644 ./res/viewer/${FLATPAK_ID}.viewer.desktop -t /app/share/applications/
