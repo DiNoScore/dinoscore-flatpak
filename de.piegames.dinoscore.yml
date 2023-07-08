@@ -52,6 +52,7 @@ modules:
       - type: archive
         url: "https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.3.zip"
         sha256: "bdeecf9968689d270c0883fabdd22d79039c982b7afda475665573b8e66bdcc5"
+  - pikepdf.yml
   - name: dinoscore
     buildsystem: simple
     build-commands:

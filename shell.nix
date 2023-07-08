@@ -5,6 +5,8 @@ pkgs.mkShell {
   # nativeBuildInputs is usually what you want -- tools you need to run
   nativeBuildInputs = with pkgs; [
     just
+    jq
+    yq
     flatpak
     flatpak-builder
     (python3.withPackages (pypkgs: with pypkgs; [

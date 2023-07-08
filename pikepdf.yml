@@ -1,0 +1,26 @@
+name: pikepdf-src
+buildsystem: simple
+build-commands:
+  - pip3 install --no-index --prefix=${FLATPAK_DEST} --no-build-isolation .
+sources:
+  - url: https://files.pythonhosted.org/packages/8d/0a/a964edab0bdb29ceae4ef4309f4448f52e71e8228748760d5edc9c3c0d7e/pikepdf-7.2.0.tar.gz
+    sha256: ad82b836faed0376c725e19d0f8a7c7bef389e8c46683c11bbfc70410bc2e3ee
+    type: archive
+    x-checker-data:
+      type: pypi
+      name: pikepdf
+modules:
+  - com.github.jeromerobert.pdfarranger/python3-lxml.yaml
+  - com.github.jeromerobert.pdfarranger/python3-pikepdf-deps.yaml
+  - name: qpdf
+    buildsystem: cmake-ninja
+    builddir: true
+    sources:
+      - url: https://github.com/qpdf/qpdf/releases/download/v11.4.0/qpdf-11.4.0.tar.gz
+        sha256: b0180971cc1b79b2dfe02ffe28e2c88c47f735888a3a2543dd42b9054ef146e1
+        type: archive
+        x-checker-data:
+          type: anitya
+          project-id: 5542
+          stable-only: true
+          url-template: https://github.com/qpdf/qpdf/releases/download/v$version/qpdf-$version.tar.gz
